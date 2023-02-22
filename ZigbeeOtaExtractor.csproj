@@ -9,6 +9,9 @@
         <SelfContained>false</SelfContained>
         <DebugType>embedded</DebugType>
         <AssemblyName>zigbee-ota-extractor</AssemblyName>
+        <PublishDir Condition="'$(RuntimeIdentifier)' == 'linux-x64'">out-linux-x64</PublishDir>
+        <PublishDir Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">out-linux-arm64</PublishDir>
+        <PublishDir Condition="'$(RuntimeIdentifier)' == 'win-x64'">out-win-x64</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>

@@ -1,0 +1,39 @@
+name: Build
+on:
+  push:
+    tags:        
+      - 'v*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
+    - name: Publish (Linux x64)
+      run: dotnet publish --runtime linux-x64 --no-self-contained -c Release
+    - name: Publish (Linux arm64)
+      run: dotnet publish --runtime linux-arm64 --no-self-contained -c Release
+    - name: Publish (Windows x64)
+      run: dotnet publish --runtime win-x64 --no-self-contained -c Release
+    - name: Package (Linux x64)
+      run: cd out-linux-x64 && tar -czf zigbee-ota-extractor-linux-x64.tar.gz * && cd ..
+    - name: Package (Linux arm64)
+      run: cd out-linux-arm64 && tar -czf zigbee-ota-extractor-linux-arm64.tar.gz * && cd ..
+    - name: Package (Windows x64)
+      run: cd out-win-x64 && zip -r zigbee-ota-extractor-win-x64.zip * && cd ..
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        prerelease: true
+        files: |
+          out-linux-x64/zigbee-ota-extractor-linux-x64.tar.gz
+          out-linux-arm64/zigbee-ota-extractor-linux-arm64.tar.gz
+          out-win-x64/zigbee-ota-extractor-win-x64.zip

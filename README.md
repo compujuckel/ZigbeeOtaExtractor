@@ -7,6 +7,7 @@ Tool to extract Zigbee OTA files from Wireshark packet captures
 A Zigbee sniffer is required to get the packet capture.
 Follow [this guide](https://www.zigbee2mqtt.io/advanced/zigbee/04_sniff_zigbee_traffic.html) to get started.  
 **If your device needs an install code, you'll have to derive a link key using AES-MMO first.**
+For convenience, I've written a small tool to do that [here](https://jsfiddle.net/p7yroctn/).
 
 This tool requires an installed [.NET 7 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/7.0/runtime).
 
